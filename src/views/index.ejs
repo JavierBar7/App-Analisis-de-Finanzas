@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Index</title>
+</head>
+<body>
+    <main>
+    <form action="/transaction/add-transaction" class="form" method="POST">
+        <div>
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description">
+        </div>
+        <div>
+            <label for="amount">Amount</label>
+            <input type="number" name="amount" id="amount">
+        </div>
+        <div>
+            <label for="type">Transaction type</label>
+            <select name="type" id="type">
+                <option value="entry">Entry</option>
+                <option value="expense">Expense</option>
+            </select>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% transactions.forEach(transaction => {%>
+                    <tr>   
+                        <td><%= transaction.description%></td>
+                        <td><%= transaction.amount%></td>
+                        <td data-type="<%= transaction.type%>"><%= transaction.type%></td>  
+                    </tr>
+                <%})%>
+            </tbody>
+        </table>
+    </div>
+    </main>
+</body>
+</html>

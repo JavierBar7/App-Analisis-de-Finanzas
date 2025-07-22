@@ -1,0 +1,28 @@
+{
+  "description": "a",
+  "name": "a",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "a",
+    "start": "npx nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "a"
+  },
+  "keywords": [
+    "a"
+  ],
+  "author": "a",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.2"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.0",
+    "nodemon": "^3.1.10"
+  }
+}
