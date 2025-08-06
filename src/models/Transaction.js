@@ -1,5 +1,7 @@
 const connection = require('../config/database')
 
+const transactions = []
+
 class Transaction {
     constructor(description, amount, type){
         this.description = description;
@@ -17,9 +19,9 @@ class Transaction {
         }
     }
 
-        save(){
+    save(){
         transactions.push(this)
     }
 }
 
-module.exports = { Transaction};
+module.exports = {Transaction};

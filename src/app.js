@@ -13,6 +13,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/transaction', transactionRouter);
 app.use('/', indexRouter);
 
+app.get('/401', (_, res) => {
+    res.render('401')
+})
 
 
 module.exports = app;
