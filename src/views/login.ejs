@@ -1,0 +1,12 @@
+<% include('header') %>
+
+<div class="container">
+    <h2>Login</h2>
+<form method="POST" action="/login" class="form">
+    <input type="user" name="user" placeholder="User" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+</form>
+
+    <p>Did you forget your account? <a href="/register">Too bad</a></p>
+</div>
