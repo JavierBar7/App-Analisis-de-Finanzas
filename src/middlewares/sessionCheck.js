@@ -5,4 +5,5 @@ function sessionCheck(req, res, next) {
   return res.status(401).redirect('/401');
 }
 
-module.exports = sessionCheck
+
+module.exports = sessionCheck;
