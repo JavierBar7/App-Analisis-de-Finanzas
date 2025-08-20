@@ -22,6 +22,18 @@ class Transaction {
     save(){
         transactions.push(this)
     }
+
+    static async addTransaction(description, amount, type) {
+        try {
+            const [result] = await connection.promise().query(
+                'INSERT INTO transaction (description, amount, type) VALUES (?, ?, ?)',
+                [description, amount, type]
+            );
+        } catch (error) {
+            console.error('Error al agregar la transacción', error);
+            throw error;
+        }
+    }
 }
 
 module.exports = {Transaction};

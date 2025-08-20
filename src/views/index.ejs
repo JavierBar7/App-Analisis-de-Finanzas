@@ -1,7 +1,7 @@
 <%- include('header') %>  
 <body>
     <main>
-    <form action="/transaction/add-transaction" class="form" method="POST">
+    <form action="/index" class="form" method="POST">
         <div>
             <label for="description">Description</label>
             <input type="text" name="description" id="description">
@@ -30,10 +30,10 @@
             </thead>
             <tbody>
                 <% transactions.forEach(transaction => {%>
-                    <tr>   
-                        <td><%= transaction.description%></td>
-                        <td><%= transaction.amount%></td>
-                        <td data-type="<%= transaction.type%>"><%= transaction.type%></td>  
+                    <tr>
+                        <td><%= transaction.description %></td>
+                        <td><%= transaction.amount %></td>
+                        <td data-type="<%= transaction.type %>"><%= transaction.type %></td>
                     </tr>
                 <%})%>
             </tbody>
