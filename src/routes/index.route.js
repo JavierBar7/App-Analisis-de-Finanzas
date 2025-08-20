@@ -1,6 +1,10 @@
 const router = require('express').Router();
-const {index} = require('../controllers/index.controller');
+const { index, newTransaction } = require('../controllers/index.controller');
 const sessionCheck = require('../middlewares/sessionCheck');
 
-router.get('/', index);
+
+router.get(['/', '/index'], sessionCheck, index);
+router.post('/index', sessionCheck, newTransaction);
+
+
 module.exports = router;
