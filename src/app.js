@@ -30,9 +30,6 @@ app.use('/', indexRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 
-app.get('/index', sessionCheck, (req, res) => {
-    res.render('index', { user: req.session.user });
-});
 
 app.get('/401', (_, res) => {
     res.render('401')
