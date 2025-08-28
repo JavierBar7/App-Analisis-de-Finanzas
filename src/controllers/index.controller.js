@@ -1,9 +1,9 @@
 const { Transaction } = require('../models/Transaction');
 
-
-const index = async (_, res) => {
+const index = async (req, res) => {
     try {
-        const transactions = await Transaction.getAll();
+        const userId = req.session.user.user_id; // or req.session.user.id, adjust as needed
+        const transactions = await Transaction.getByUser(userId);
         res.render('index', { transactions: transactions || [] });
     } catch (error) {
         console.error('Error al obtener transacciones:', error);
@@ -14,7 +14,8 @@ const index = async (_, res) => {
 const newTransaction = async (req, res) => {
     try {
         const { description, amount, type } = req.body;
-        await Transaction.addTransaction(description, amount, type);
+        const userId = req.session.user.user_id; // or req.session.user.id
+        await Transaction.addTransaction(description, amount, type, userId);
         res.redirect('/index');
     } catch (error) {
         console.error('Error al agregar la transacción:', error);
@@ -22,4 +23,4 @@ const newTransaction = async (req, res) => {
     }
 }
 
-    module.exports = {index,newTransaction}
+module.exports = {index, newTransaction}

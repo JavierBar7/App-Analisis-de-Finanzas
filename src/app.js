@@ -29,12 +29,20 @@ app.get('/login', (req, res) => {
     res.render('login', { user: undefined });
 });
 
+app.use('/transaction', transactionRouter);
 app.use('/index', transactionRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 
 
 app.use('/', indexRouter);
+
+app.post('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) return res.redirect('/dashboard');
+        res.redirect('/login');
+    });
+});
 
 app.get('/401', (_, res) => {
     res.render('401');

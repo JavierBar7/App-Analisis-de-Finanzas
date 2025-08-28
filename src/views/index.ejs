@@ -1,18 +1,23 @@
+<form action="/logout" method="POST" style="display:inline;">
+            <button type="submit" class="btnLogOut">Log Out</button>
+</form>
 <%- include('header') %>  
+
 <body>
+    
     <main>
     <form action="/index" class="form" method="POST">
         <div>
             <label for="description">Description</label>
-            <input type="text" name="description" id="description">
+            <input type="text" name="description" id="description" required>
         </div>
         <div>
             <label for="amount">Amount</label>
-            <input type="number" name="amount" id="amount">
+            <input type="number" name="amount" id="amount" required>
         </div>
         <div>
             <label for="type">Transaction type</label>
-            <select name="type" id="type">
+            <select name="type" id="type" required>
                 <option value="entry">Entry</option>
                 <option value="expense">Expense</option>
             </select>
@@ -26,17 +31,66 @@
                     <th>Description</th>
                     <th>Amount</th>
                     <th>Type</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <% transactions.forEach(transaction => {%>
+                <% (transactions || []).forEach(transaction => { %>
                     <tr>
                         <td><%= transaction.description %></td>
                         <td><%= transaction.amount %></td>
-                        <td data-type="<%= transaction.type %>"><%= transaction.type %></td>
+                        <td><%= transaction.type %></td>
+                        <td style="display: flex; gap: 8px;">
+
+                            <button type="button"
+                                onclick="openEditModal('<%= transaction.transaction_id %>', '<%= transaction.description %>', '<%= transaction.amount %>', '<%= transaction.type %>')"
+                                style="background:none; border:none; padding:0;">
+                                <img src="/images/edit-button.png" alt="Edit" width="24" height="24">
+                            </button>
+
+                            <form action="/transaction/delete" method="POST" style="display:inline;">
+                                <input type="hidden" name="transaction_id" value="<%= transaction.transaction_id %>">
+                                <button type="submit" style="background:none; border:none; padding:0;">
+                                    <img src="/images/delete.png" alt="Delete" width="24" height="24">
+                                </button>
+                            </form>
+                        </td>
                     </tr>
-                <%})%>
+                <% }) %>
             </tbody>
         </table>
     </div>
+
+    <div id="editModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()" style="cursor:pointer;">&times;</span>
+            <h3>Edit Transaction</h3>
+            <form id="editForm" action="/transaction/update" method="POST">
+                <input type="hidden" name="transaction_id" id="edit_transaction_id">
+                <label>Description:</label>
+                <input type="text" name="description" id="edit_description"><br><br>
+                <label>Amount:</label>
+                <input type="number" name="amount" id="edit_amount"><br><br>
+                <label>Tipo:</label>
+                <select name="type" id="edit_type">
+                    <option value="entry">Entry</option>
+                    <option value="expense">Expense</option>
+                </select><br><br>
+                <button type="submit">Keep Changes</button>
+            </form>
+        </div>
+    </div>
+    <script>
+
+function openEditModal(id, description, amount, type) {
+    document.getElementById('edit_transaction_id').value = id;
+    document.getElementById('edit_description').value = description;
+    document.getElementById('edit_amount').value = amount;
+    document.getElementById('edit_type').value = type;
+    document.getElementById('editModal').style.display = 'flex';
+}
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+}
+</script>
 <%- include('footer') %>
